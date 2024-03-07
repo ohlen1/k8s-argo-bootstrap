@@ -1,0 +1,37 @@
+controller:
+  allowSnippetAnnotations: true
+    ingressClass: default
+    ingressClassResource:
+      name: default
+      controllerValue: "k8s.io/ingress-default-nginx"
+    replicaCount: 1
+    autoscaling:
+      enabled: true
+      minReplicas: 1
+      maxReplicas: 2
+      targetCPUUtilizationPercentage: 50
+      targetMemoryUtilizationPercentage: 50
+  readinessProbe:
+    timeoutSeconds: 5
+  livenessProbe:
+    timeoutSeconds: 5
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: false
+      additionalLabels:
+        release: prometheus-operator
+  config:
+    proxy-buffer-size: "16k"
+    use-proxy-protocol: "true"
+    proxy-add-original-uri-header: "true"
+    log-format-escape-json: "true"
+    log-format-upstream: '{ "time": "$time_iso8601", "remote_addr": "$proxy_protocol_addr","x-forward-for": "$proxy_add_x_forwarded_for", "request_id": "$req_id", "remote_user":"$remote_user", "ssl_client_serial":"$ssl_client_serial", "bytes_sent": $bytes_sent, "request_time": $request_time, "status":$status, "vhost": "$host", "request_proto": "$server_protocol", "path": "$uri","request_query": "$args", "request_length": $request_length, "duration": $request_time,"method": "$request_method", "http_referrer": "$http_referer", "http_user_agent":"$http_user_agent", "proxy_upstream_name": "$proxy_upstream_name" }'
+    # Adding application/x-protobuf
+    gzip-types: "application/atom+xml application/javascript application/x-javascript application/json application/rss+xml application/vnd.ms-fontobject application/x-font-ttf application/x-web-app-manifest+json application/xhtml+xml application/xml font/opentype image/svg+xml image/x-icon text/css text/plain text/x-component application/x-protobuf"
+  service:
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
+      service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "3600"
+  publishService:
+    enabled: true
