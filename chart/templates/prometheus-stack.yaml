@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus-stack
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: prometheus-stack
+    name: in-cluster
+  project: default
+  sources:
+    - repoURL: https://prometheus-community.github.io/helm-charts
+      chart: prometheus-operator
+      targetRevision: 56.2.1
+      helm:
+        valueFiles:
+          - $valuesSrc/values/prometheus-stack/values.yaml
+    - repoURL: 'https://github.com/ohlen1/k8s-argo-bootstrap'
+      targetRevision: HEAD
+      ref: valuesSrc
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+
