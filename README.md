@@ -8,15 +8,12 @@ This is an example of a way to setup basic services in a typical Kubernetes clus
 ## Install
 Up and running in notime!
 
-Assuming you have a Kubernetes cluster up and running, follow the below steps. If not you can easily spin up a local Kind cluster for testing in less than 5 minutes. See [here](https://kind.sigs.k8s.io/docs/user/quick-start/#installation) on how to-
-```bash
-
-```
+Assuming you have a Kubernetes cluster up and running, follow the below steps. If not you can easily spin up a local Kind cluster for testing in less than 5 minutes. See [here](https://kind.sigs.k8s.io/docs/user/quick-start/#installation) on how to.
 
 1. Install ArgoCD:
    ```bash
    kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-```
+   ```
 
 2. Install the bootstrap-app:
    ```bash
