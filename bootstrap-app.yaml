@@ -16,3 +16,8 @@ spec:
     path: chart
     helm:
       releaseName: bootstrap-app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
