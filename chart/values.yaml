@@ -1,0 +1,26 @@
+clusterAutoscaler:
+  enabled: true
+  spec:
+    sources:
+      helm:
+        targetRevision: 9.35.0
+      values: 
+        targetRevision: HEAD
+
+ingressNginx:
+  enabled: true
+  spec:
+    sources:
+      helm:
+        targetRevision: 4.9.1
+      values: 
+        targetRevision: HEAD
+
+prometheusStack:
+  enabled: true
+  spec:
+    sources:
+      helm: 
+        targetRevision: 56.2.1
+      values: 
+        targetRevision: HEAD

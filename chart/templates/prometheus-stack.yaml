@@ -1,3 +1,4 @@
+{{- if .Values.prometheusStack.enabled -}}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -8,20 +9,21 @@ metadata:
 spec:
   destination:
     namespace: prometheus-stack
-    name: in-cluster
+    server: https://kubernetes.default.svc
   project: default
   sources:
     - repoURL: https://prometheus-community.github.io/helm-charts
       chart: kube-prometheus-stack
-      targetRevision: 56.2.1
+      targetRevision: {{ .Values.prometheusStack.spec.sources.helm.targetRevision }}
       helm:
         valueFiles:
           - $valuesSrc/values/prometheus-stack/values.yaml
     - repoURL: 'https://github.com/ohlen1/k8s-argo-bootstrap'
-      targetRevision: HEAD
+      targetRevision: {{ .Values.prometheusStack.spec.sources.values.targetRevision }}
       ref: valuesSrc
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true # https://foxutech.medium.com/how-to-fix-too-long-must-have-at-most-262144-bytes-in-argocd-2a00cddbbe99
+{{- end }}
 
