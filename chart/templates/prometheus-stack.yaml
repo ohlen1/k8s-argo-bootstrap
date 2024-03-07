@@ -12,7 +12,7 @@ spec:
   project: default
   sources:
     - repoURL: https://prometheus-community.github.io/helm-charts
-      chart: prometheus-operator
+      chart: kube-prometheus-stack
       targetRevision: 56.2.1
       helm:
         valueFiles:
