@@ -1,21 +1,18 @@
-  rbac:
-    serviceAccount:
-      create: true
-  extraArgs:
-    scale-down-unneeded-time: 10m
-    balance-similar-node-groups: true
-    skip-nodes-with-local-storage: false
-    max-node-provision-time: 3m
-    expander: priority
-  autoDiscovery:
-    clusterName: kind
-    tags:
-      - k8s.io/cluster-autoscaler/enabled
-  replicaCount: 2
-  serviceMonitor:
-    enabled: true
-    selector:
-      release: prometheus
-    namespace: cluster-autoscaler
-    podAnnotations:
-      "cluster-autoscaler.kubernetes.io/safe-to-evict": "true"
+rbac:
+  serviceAccount:
+    create: true
+extraArgs:
+  scale-down-unneeded-time: 10m
+  balance-similar-node-groups: true
+  skip-nodes-with-local-storage: false
+  max-node-provision-time: 3m
+  expander: priority
+autoDiscovery:
+  clusterName: kind
+  tags:
+    - k8s.io/cluster-autoscaler/enabled
+replicaCount: 2
+serviceMonitor:
+  enabled: false
+podAnnotations:
+  "cluster-autoscaler.kubernetes.io/safe-to-evict": "true"
