@@ -20,7 +20,7 @@ spec:
     - repoURL: 'https://github.com/ohlen1/k8s-argo-bootstrap'
       targetRevision: HEAD
       ref: valuesSrc
-    syncPolicy:
-      syncOptions:
-        - CreateNamespace=true
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
 
